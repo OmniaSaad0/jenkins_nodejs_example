@@ -6,7 +6,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh """
-                        docker login -u $USERNAME -p $PASSWORD
+                        echo "$PASSWORD" | docker login -u "$USERNAME" --password-stdin                        
                         docker build . -t omniasaad/node-jenkins:v1
                         docker push omniasaad/node-jenkins:v1
                     """
